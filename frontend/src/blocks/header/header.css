@@ -1,0 +1,15 @@
+.header {
+    max-width: 880px;
+    height: 74px;
+    box-sizing: border-box;
+    border-bottom: 1px solid rgb(84, 84, 84, .7);
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+@media screen and (max-width: 1023px) {
+    .header {
+        max-width: 100%;
+    }
+}

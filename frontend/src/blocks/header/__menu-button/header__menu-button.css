@@ -1,0 +1,21 @@
+.header__menu-button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    position: absolute;
+    right: 30px;
+    border: 0;
+    background-color: transparent;
+    display: none;
+}
+
+.header__menu-button:hover {
+    cursor: pointer;
+    opacity: .6;
+}
+
+@media screen and (max-width: 767px) {
+    .header__menu-button {
+        display: block;
+    }
+}

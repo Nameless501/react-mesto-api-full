@@ -1,0 +1,15 @@
+.sign__caption {
+    margin: 15px 0 0;
+    padding: 0;
+    text-align: center;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #FFF;
+}
+
+@media screen and (max-width: 767px) {
+    .sign__caption {
+        margin-top: 20px;
+    }
+}

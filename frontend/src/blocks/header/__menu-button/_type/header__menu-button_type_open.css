@@ -1,0 +1,21 @@
+.header__menu-button_type_open {
+    height: 12px;
+    width: 24px;
+    bottom: 39px;
+    background-color: transparent;
+    border-top: 3px solid #FFFFFF;
+    border-bottom: 3px solid #FFFFFF;
+}
+
+.header__menu-button_type_open::after {
+    content: '';
+    margin: 0;
+    padding: 0;
+    height: 3px;
+    width: 24px;
+    display: block;
+    background-color: #FFFFFF;
+    position: absolute;
+    top: 15px;
+    left: 0;
+}

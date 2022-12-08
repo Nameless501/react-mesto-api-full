@@ -1,0 +1,27 @@
+.header__navigation-bar {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+}
+
+@media screen and (max-width: 1023px) {
+    .header__navigation-bar {
+        padding-right: 30px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .header__navigation-bar {
+        margin-top: -142px;
+        padding: 40px 0;
+        flex-direction: column;
+        align-items: center;
+        gap: 18px;
+        border-bottom: 1px solid rgb(84, 84, 84, .7);
+        transition: margin-top, .3s;
+        visibility: hidden;
+    }
+}
