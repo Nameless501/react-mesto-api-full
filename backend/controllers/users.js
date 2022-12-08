@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const NotFoundError = require('../errors/NotFoundError');
-const { CREATED_CODE } = require('../utils/constants');
+const { CREATED_CODE, LOGOUT_MESSAGE } = require('../utils/constants');
 const { handleError } = require('../utils/utils');
 
 const { SECRET_KEY = 'some-secret-key' } = process.env;
@@ -13,22 +13,24 @@ const login = (req, res, next) => {
   User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, SECRET_KEY, { expiresIn: '7d' });
-      res.cookie('jwt', token, { httpOnly: true }).send({
-        data: {
-          name: user.name,
-          about: user.about,
-          avatar: user.avatar,
-          email: user.email,
-          _id: user._id,
-        },
+      res.cookie('jwt', token, { httpOnly: true, secure: true }).send({
+        name: user.name,
+        about: user.about,
+        avatar: user.avatar,
+        email: user.email,
+        _id: user._id,
       });
     })
     .catch((err) => handleError(err, next));
 };
 
+const logout = (req, res, next) => {
+  res.clearCookie('jwt').send({ message: LOGOUT_MESSAGE });
+};
+
 const getUsers = (req, res, next) => {
   User.find({})
-    .then((users) => res.send({ data: users }))
+    .then((users) => res.send(users))
     .catch((err) => handleError(err, next));
 };
 
@@ -37,7 +39,7 @@ function findUserById(model, id, res, next) {
     .orFail(() => {
       throw new NotFoundError();
     })
-    .then((user) => res.send({ data: user }))
+    .then((user) => res.send(user))
     .catch((err) => handleError(err, next));
 }
 
@@ -67,13 +69,11 @@ const createUser = (req, res, next) => {
       password: hash,
     }))
     .then((user) => res.status(CREATED_CODE).send({
-      data: {
-        name: user.name,
-        about: user.about,
-        avatar: user.avatar,
-        email: user.email,
-        _id: user._id,
-      },
+      name: user.name,
+      about: user.about,
+      avatar: user.avatar,
+      email: user.email,
+      _id: user._id,
     }))
     .catch((err) => handleError(err, next));
 };
@@ -83,7 +83,7 @@ function updateUserData(model, id, res, next, params) {
     .orFail(() => {
       throw new NotFoundError();
     })
-    .then((user) => res.send({ data: user }))
+    .then((user) => res.send(user))
     .catch((err) => handleError(err, next));
 }
 
@@ -99,6 +99,7 @@ const updateAvatar = (req, res, next) => {
 
 module.exports = {
   login,
+  logout,
   getUsers,
   findUser,
   createUser,

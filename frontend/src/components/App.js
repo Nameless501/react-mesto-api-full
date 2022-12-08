@@ -44,7 +44,8 @@ function App() {
   // Получение данных карточек и пользователя при открытии страницы
 
   useEffect(() => {
-    Promise.all([api.getCardsData(), api.getUserData()])
+    if (isLoggedIn) {
+      Promise.all([api.getCardsData(), api.getUserData()])
         .then(allData => {
           const [cardsData, userData] = allData;
           return [cardsData, userData]
@@ -57,7 +58,8 @@ function App() {
           setCardsData(cardsData);
         })
         .catch(err => console.log(`Не удалость загрузить данные. Ошибка: ${err}`));
-  }, []);
+    }
+  }, [isLoggedIn]);
 
   // Изменения состояния попапов
 
@@ -165,10 +167,7 @@ function App() {
   // регистрация, вход в аккаунт, проверка токена при входе, выход из аккаунта
 
   function checkToken() {
-    const token = localStorage.getItem('token');
-
-    if(token) {
-      auth.checkToken(token)
+    auth.checkToken()
         .then(res => {
           if(res) {
             setCurrentUser(prevState => ({
@@ -180,17 +179,19 @@ function App() {
           }
         })
         .catch(err => console.log(`Не удалось проверить токен. ${err}`));
-    }
   }
 
   useEffect(() => {
-    checkToken()
-  }, [isLoggedIn]);
+    checkToken();
+  }, []);
 
   function signOut(){
-    localStorage.removeItem('token');
-    setLoginStatus(false);
-    history.push('/sign-in');
+    auth.logout()
+      .then((res) => {
+        setLoginStatus(false);
+        history.push('/sign-in');
+      })
+      .catch(err => console.log(`Не удалось выйти из аккаунта. ${err}`));
   }
 
   function handleRegister(password, email) {

@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const cookieParser = require('cookie-parser');
@@ -6,12 +7,15 @@ const { handleLog } = require('./utils/utils');
 const {
   DEFAULT_ERROR_CODE,
   DEFAULT_ERROR_MESSAGE,
+  CORS_CONFIG,
 } = require('./utils/constants');
 const { errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000, DB_URL = 'mongodb://localhost:27017/mestodb' } = process.env;
 
 const app = express();
+
+app.use('*', cors(CORS_CONFIG));
 
 app.use(cookieParser());
 

@@ -7,7 +7,7 @@ const { handleError } = require('../utils/utils');
 const getCards = (req, res, next) => {
   Card.find({})
     .populate(['owner', 'likes'])
-    .then((cards) => res.send({ data: cards }))
+    .then((cards) => res.send(cards))
     .catch((err) => handleError(err, next));
 };
 
@@ -21,7 +21,7 @@ const createCard = (req, res, next) => {
     }
     Card.findById(newCard._id)
       .populate(['owner', 'likes'])
-      .then((card) => res.status(CREATED_CODE).send({ data: card }))
+      .then((card) => res.status(CREATED_CODE).send(card))
       .catch((e) => handleError(e, next));
   });
 };
@@ -34,7 +34,7 @@ const deleteCard = (req, res, next) => {
     .then((card) => {
       if (card.owner.toString() === req.user._id) {
         card.remove()
-          .then(() => res.send({ data: card }));
+          .then(() => res.send(card));
       } else {
         throw new ForbiddenError();
       }
@@ -52,7 +52,7 @@ function handleLikeToggle(model, req, res, next, action) {
       throw new NotFoundError();
     })
     .populate(['owner', 'likes'])
-    .then((card) => res.send({ data: card }))
+    .then((card) => res.send(card))
     .catch((err) => handleError(err, next));
 }
 

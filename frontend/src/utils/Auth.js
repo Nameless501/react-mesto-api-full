@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://auth.nomoreparties.co';
+import { BASE_URL } from './constants.js';
 
 function checkResponse(res) {
     return res.ok ? res.json() : Promise.reject(res.status);
@@ -9,11 +9,11 @@ export const register = (password, email) => {
         method: 'POST',
         headers: {
             "Content-Type": "application/json" 
-            },
+        },
         body: JSON.stringify({
             password,
             email
-            })
+        })
     })
         .then(response => checkResponse(response))
 }
@@ -23,31 +23,32 @@ export const login = (password, email) => {
         method: 'POST',
         headers: {
             "Content-Type": "application/json" 
-            },
+        },
+        credentials: 'include',
         body: JSON.stringify({
             password,
             email
-            })
-    })
-        .then(response => checkResponse(response))
-        .then(data => { 
-            if(data.token) {
-                localStorage.setItem('token', data.token);
-                return data;
-            } else {
-                return;
-            }
         })
+    })
+        .then(response => checkResponse(response));
 }
 
-export const checkToken = (token) => {
+export const logout = () => {
+    return fetch(`${BASE_URL}/signout`, {
+        method: 'POST',
+        headers: {},
+        credentials: 'include',
+    })
+        .then(response => checkResponse(response));
+}
+
+export const checkToken = () => {
     return fetch(`${BASE_URL}/users/me`, {
         method: 'GET',
         headers: {
             "Content-Type": "application/json",
-            "Authorization" : `Bearer ${token}`
-            },
+        },
+        credentials: 'include',
     })
-        .then(response => checkResponse(response))
-        .then(res => res.data)
+        .then(response => checkResponse(response));
 }

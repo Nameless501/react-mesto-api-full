@@ -26,6 +26,8 @@ const FORBIDDEN_MESSAGE = 'Ошибка доступа';
 
 const DEFAULT_ERROR_MESSAGE = 'Произошла ошибка';
 
+const LOGOUT_MESSAGE = 'Выход из аккаунта успешно выполнен';
+
 const DEFAULT_USER_NAME = 'Жак-Ив Кусто';
 
 const DEFAULT_USER_ABOUT = 'Исследователь';
@@ -33,6 +35,17 @@ const DEFAULT_USER_ABOUT = 'Исследователь';
 const DEFAULT_AVATAR_LINK = 'https://pictures.s3.yandex.net/resources/jacques-cousteau_1604399756.png';
 
 const LINK_REG_EXP = /^https?:\/\/(www\.)?[\w\d@:%~#=.+-/]+$/;
+
+const ORIGINS = ['http://localhost:3001'];
+
+const CORS_CONFIG = {
+  origin: ORIGINS,
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+  allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
+  credentials: true,
+};
 
 module.exports = {
   BAD_REQUEST_CODE,
@@ -49,8 +62,10 @@ module.exports = {
   EMAIL_CONFLICT_MESSAGE,
   FORBIDDEN_MESSAGE,
   DEFAULT_ERROR_MESSAGE,
+  LOGOUT_MESSAGE,
   DEFAULT_USER_NAME,
   DEFAULT_USER_ABOUT,
   DEFAULT_AVATAR_LINK,
   LINK_REG_EXP,
+  CORS_CONFIG,
 };
