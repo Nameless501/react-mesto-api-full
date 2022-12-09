@@ -15,13 +15,18 @@ const login = (req, res, next) => {
   User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, SECRET_KEY, { expiresIn: '7d' });
-      res.cookie('jwt', token, { httpOnly: true, secure: NODE_ENV === 'production' }).send({
-        name: user.name,
-        about: user.about,
-        avatar: user.avatar,
-        email: user.email,
-        _id: user._id,
-      });
+      res.cookie('jwt', token, {
+        httpOnly: true,
+        secure: NODE_ENV === 'production',
+        sameSite: false,
+      })
+        .send({
+          name: user.name,
+          about: user.about,
+          avatar: user.avatar,
+          email: user.email,
+          _id: user._id,
+        });
     })
     .catch((err) => handleError(err, next));
 };
