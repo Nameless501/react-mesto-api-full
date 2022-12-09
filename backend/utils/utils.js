@@ -2,10 +2,6 @@ const { Error } = require('mongoose');
 const BadRequestError = require('../errors/BadRequestError');
 const ConflictError = require('../errors/ConflictError');
 
-function handleLog(err) {
-  console.log(err.message);
-}
-
 const handleError = (err, next) => {
   if (err instanceof Error.CastError) {
     next(new BadRequestError());
@@ -18,4 +14,4 @@ const handleError = (err, next) => {
   }
 };
 
-module.exports = { handleError, handleLog };
+module.exports = { handleError };

@@ -3,11 +3,9 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const cookieParser = require('cookie-parser');
-const { handleLog } = require('./utils/utils');
 const {
   DEFAULT_ERROR_CODE,
   DEFAULT_ERROR_MESSAGE,
-  CORS_CONFIG,
 } = require('./utils/constants');
 const { errorLogger } = require('./middlewares/logger');
 
@@ -15,7 +13,7 @@ const { PORT = 3000, DB_URL = 'mongodb://localhost:27017/mestodb' } = process.en
 
 const app = express();
 
-app.use('*', cors(CORS_CONFIG));
+app.use('*', cors());
 
 app.use(cookieParser());
 
@@ -32,7 +30,6 @@ app.use((err, req, res, next) => {
   if (err.statusCode) {
     res.status(err.statusCode).send({ message: err.message });
   } else {
-    handleLog(err);
     res.status(DEFAULT_ERROR_CODE).send({ message: DEFAULT_ERROR_MESSAGE });
   }
 });
