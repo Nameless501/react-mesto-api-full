@@ -1,1 +1,1 @@
-export const BASE_URL = 'http://api.nameless.nomoredomains.club/';
+export const BASE_URL = 'https://api.nameless.nomoredomains.club/';
