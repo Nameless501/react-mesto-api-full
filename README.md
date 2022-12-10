@@ -1,11 +1,11 @@
 # <p align="center">Mesto (frontend + backend)</p>
 
-## <div align="center" >
-<h2>Ссылки</h2>
-<a href="https://nameless.nomoredomains.club/">Frontend</a>
-<a href="https://api.nameless.nomoredomains.club/">Backend</a>
-<a href="158.160.23.80">IP</a>
-</div>
+<div align="center"><h3>Ссылки</h3></div>
+<div align="center"><p>Frontend: <a href="https://nameless.nomoredomains.club/">https://nameless.nomoredomains.club/</a></p></div>
+<div align="center"><p>Backend: <a href="https://api.nameless.nomoredomains.club/">https://api.nameless.nomoredomains.club/</a></p></div>
+<div align="center"><p>IP: <a href="158.160.23.80">158.160.23.80</a></p></div>
+
+___
 
 ### Описание: 
 Социальная сеть с возможностью делиться карточками с фотографией и подписью, просматривать карточки других пользователей, ставить под карточками лайки и редактировать данные профиля. Так же есть возможность регистрации и аутентификации пользователя.
