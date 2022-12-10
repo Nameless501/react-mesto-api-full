@@ -36,7 +36,12 @@ const DEFAULT_AVATAR_LINK = 'https://pictures.s3.yandex.net/resources/jacques-co
 
 const LINK_REG_EXP = /^https?:\/\/(www\.)?[\w\d@:%~#=.+-/]+$/;
 
-const ORIGINS = ['http://localhost:3001', 'http://localhost:3000', 'https://nameless.nomoredomains.club'];
+const ORIGINS = [
+  'http://localhost:3001',
+  'http://localhost:3000',
+  'http://nameless.nomoredomains.club',
+  'https://nameless.nomoredomains.club',
+];
 
 const CORS_CONFIG = {
   origin: ORIGINS,

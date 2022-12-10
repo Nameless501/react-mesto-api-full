@@ -45,18 +45,8 @@ function App() {
 
   useEffect(() => {
     if (isLoggedIn) {
-      Promise.all([api.getCardsData(), api.getUserData()])
-        .then(allData => {
-          const [cardsData, userData] = allData;
-          return [cardsData, userData]
-        })
-        .then(([cardsData, userData]) => {
-          setCurrentUser(prevState => ({
-            ...prevState,
-            data: userData,
-          }));
-          setCardsData(cardsData);
-        })
+      api.getCardsData()
+        .then(cardsData => setCardsData(cardsData.reverse()))
         .catch(err => console.log(`Не удалость загрузить данные. Ошибка: ${err}`));
     }
   }, [isLoggedIn]);
@@ -168,17 +158,22 @@ function App() {
 
   function checkToken() {
     auth.checkToken()
-        .then(res => {
-          if(res) {
+        .then(userData => {
+          if(userData) {
             setCurrentUser(prevState => ({
               ...prevState,
-              email: res.email,
-            }))
+              data: userData,
+            }));
             setLoginStatus(true);
             history.push('/');
           }
         })
-        .catch(err => console.log(`Не удалось проверить токен. ${err}`));
+        .catch(err => {
+          setLoginStatus(false);
+          history.push('/sign-in');
+          
+          console.log('Необходима авторизация');
+        });
   }
 
   useEffect(() => {
@@ -205,7 +200,12 @@ function App() {
 
   function handleLogin(password, email) {
     auth.login(password, email)
-      .then(() => {
+      .then((userData) => {
+        setCurrentUser(prevState => ({
+          ...prevState,
+          data: userData,
+        }));
+
         setLoginStatus(true);
         history.push('/');
       })
