@@ -1,9 +1,9 @@
 # <p align="center">Mesto (frontend + backend)</p>
 
 <div align="center"><h3>Ссылки</h3></div>
-<div align="center"><a href="https://nameless.nomoredomains.club/">Frontend</a></div>
-<div align="center"><a href="https://api.nameless.nomoredomains.club/">Backend</a></div>
-<div align="center"><a href="158.160.23.80">IP</a></div>
+<div align="center"><p>Frontend: <a href="https://nameless.nomoredomains.club/">https://nameless.nomoredomains.club/</a></p></div>
+<div align="center"><p>Backend: <a href="https://api.nameless.nomoredomains.club/">https://api.nameless.nomoredomains.club/</a></p></div>
+<div align="center"><p>IP: <a href="158.160.23.80">158.160.23.80</a></p></div>
 
 ___
 
