@@ -14,5 +14,5 @@ node_modules
 .idea
 .vscode
 
-# package-lock
-package-lock.json
+# .env
+.env
