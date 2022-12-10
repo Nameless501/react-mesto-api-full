@@ -11,16 +11,18 @@ class Api {
 
     getCardsData = () => {
         return fetch(`${this._baseUrl}/cards`, {
-            headers: {},
             credentials: 'include',
+            headers: {
+            },
         })
             .then(res => this._checkResponse(res));
     }
 
     getUserData = () => {
         return fetch(`${this._baseUrl}/users/me`, {
-            headers: {},
             credentials: 'include',
+            headers: {
+            },
         })
             .then(res => this._checkResponse(res));
     }
@@ -28,10 +30,10 @@ class Api {
     setUserData = (data) => {
         return fetch(`${this._baseUrl}/users/me`, {
             method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
-            },
             credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            },
             body: JSON.stringify({
                 name: data.name,
                 about: data.about
@@ -43,10 +45,10 @@ class Api {
     setAvatar = (data) => {
         return fetch(`${this._baseUrl}/users/me/avatar`, {
             method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
-            },
             credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            },
             body: JSON.stringify({
                 avatar: data.avatar,
             })
@@ -57,10 +59,10 @@ class Api {
     postCard = (data) => {
         return fetch(`${this._baseUrl}/cards`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
             credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            },
             body: JSON.stringify({
                 name: data.name,
                 link: data.link
@@ -72,8 +74,9 @@ class Api {
     deleteCard = (cardId) => {
         return fetch(`${this._baseUrl}/cards/${cardId}`, {
             method: 'DELETE',
-            headers: {},
             credentials: 'include',
+            headers: {
+            },
         })
             .then(res => this._checkResponse(res));
     }
@@ -81,8 +84,9 @@ class Api {
     handleLike = (cardId, isLiked) => {
         return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
             method: isLiked ? 'DELETE' : 'PUT',
-            headers: {},
             credentials: 'include',
+            headers: {
+            },
         })
             .then(res => this._checkResponse(res));
     }
