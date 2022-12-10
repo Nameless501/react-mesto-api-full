@@ -30,7 +30,7 @@ function App() {
   
   // cards and user data state
 
-  const [currentUser, setCurrentUser] = useState({data: {}, email: ''});
+  const [currentUser, setCurrentUser] = useState({data: {}});
   const [cardsData, setCardsData] = useState([]);
 
   // login state

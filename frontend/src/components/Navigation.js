@@ -7,6 +7,8 @@ function Navigation({ signOut }) {
 
     const currentUser = useContext(CurrentUserContext);
 
+    console.log(currentUser);
+
     function handleClick() {
         if(menuIsOpen) {
             setMenuStatus(false);
@@ -22,7 +24,7 @@ function Navigation({ signOut }) {
             >
                 <li>
                     <p className="header__email" >
-                        {currentUser.email}
+                        {currentUser.data.email}
                     </p>
                 </li>
                 <li>
