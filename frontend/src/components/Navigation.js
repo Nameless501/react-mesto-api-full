@@ -7,8 +7,6 @@ function Navigation({ signOut }) {
 
     const currentUser = useContext(CurrentUserContext);
 
-    console.log(currentUser);
-
     function handleClick() {
         if(menuIsOpen) {
             setMenuStatus(false);
