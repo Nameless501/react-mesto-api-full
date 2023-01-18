@@ -3,7 +3,7 @@
 <div align="center"><h3>Ссылки</h3></div>
 <div align="center"><p>Frontend: <a href="https://nameless.nomoredomains.club/">https://nameless.nomoredomains.club/</a></p></div>
 <div align="center"><p>Backend: <a href="https://api.nameless.nomoredomains.club/">https://api.nameless.nomoredomains.club/</a></p></div>
-<div align="center"><p>IP: <a href="158.160.23.80">158.160.23.80</a></p></div>
+<div align="center"><p>IP: <a href="158.160.0.189">158.160.0.189</a></p></div>
 
 ___
 
