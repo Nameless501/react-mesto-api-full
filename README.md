@@ -1,9 +1,8 @@
 # <p align="center">Mesto (frontend + backend)</p>
 
 <div align="center"><h3>Ссылки</h3></div>
-<div align="center"><p>Frontend: <a href="https://nameless.nomoredomains.club/">https://nameless.nomoredomains.club/</a></p></div>
-<div align="center"><p>Backend: <a href="https://api.nameless.nomoredomains.club/">https://api.nameless.nomoredomains.club/</a></p></div>
-<div align="center"><p>IP: <a href="158.160.0.189">158.160.0.189</a></p></div>
+<div align="center"><p>Frontend: <a href="https://nameless501.github.io/react-mesto-api-full/#/">Gh-pages</a></p></div>
+<div align="center"><p>Backend: <a href="https://react-mesto-api-full-production.up.railway.app">Railways App</a></p></div>
 
 ___
 
