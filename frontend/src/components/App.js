@@ -23,15 +23,15 @@ function App() {
   const [isEditProfilePopupOpen, setEditProfileState] = useState(false);
   const [isAddPlacePopupOpen, setAddPlaceState] = useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarState] = useState(false);
-  const [selectedCard, setSelectedCard] = useState({data: '', isOpen: false});
-  const [deletedCard, setDeletedCard] = useState({data: '', isOpen: false});
+  const [selectedCard, setSelectedCard] = useState({ data: '', isOpen: false });
+  const [deletedCard, setDeletedCard] = useState({ data: '', isOpen: false });
   const [isLoading, setIsLoading] = useState(false);
   const [token, setToken] = useState('');
-  const [registerStatus, setRegisterStatus] = useState({isOpen: false, status: false});
-  
+  const [registerStatus, setRegisterStatus] = useState({ isOpen: false, status: false });
+
   // cards and user data state
 
-  const [currentUser, setCurrentUser] = useState({data: {}});
+  const [currentUser, setCurrentUser] = useState({ data: {} });
   const [cardsData, setCardsData] = useState([]);
 
   // login state
@@ -61,7 +61,7 @@ function App() {
   function onAddPlace() {
     setAddPlaceState(true)
   }
-  
+
   function onEditAvatar() {
     setEditAvatarState(true)
   }
@@ -70,17 +70,17 @@ function App() {
     setEditProfileState(false);
     setAddPlaceState(false);
     setEditAvatarState(false);
-    setSelectedCard({data: '', isOpen: false});
-    setDeletedCard({data: '', isOpen: false});
-    setRegisterStatus({isOpen: false, status: false});
+    setSelectedCard({ data: '', isOpen: false });
+    setDeletedCard({ data: '', isOpen: false });
+    setRegisterStatus({ isOpen: false, status: false });
   }
 
   function handleCardClick(card) {
-    setSelectedCard({data: card, isOpen: true});
+    setSelectedCard({ data: card, isOpen: true });
   }
 
   function handleDeleteClick(card) {
-    setDeletedCard({data: card, isOpen: true});
+    setDeletedCard({ data: card, isOpen: true });
   }
 
   // Обработчики сабмитов, лайков, удаления карточки
@@ -93,9 +93,9 @@ function App() {
       .catch(err => console.log(`Не удалость загрузить данные. Ошибка: ${err}`));
   }
 
-  function handleCardDelete(card) { 
+  function handleCardDelete(card) {
     setIsLoading(true);
-    
+
     api.deleteCard(card._id, token)
       .then(() => {
         setCardsData(cardsData => cardsData.filter((item) => item._id !== card._id));
@@ -142,7 +142,7 @@ function App() {
   }
 
   function handleRegisterInfo(isSuccess) {
-    if(isSuccess) {
+    if (isSuccess) {
       setRegisterStatus({
         isOpen: true,
         status: true
@@ -159,35 +159,40 @@ function App() {
 
   function checkToken(token) {
     auth.checkToken(token)
-        .then(userData => {
-          if(userData) {
-            setCurrentUser(prevState => ({
-              ...prevState,
-              data: userData,
-            }));
-            setLoginStatus(true);
-            setToken(userData.token);
-            history.push('/');
-          }
-        })
-        .catch(err => {
-          setLoginStatus(false);
-          history.push('/sign-in');
-          
-          console.log('Необходима авторизация');
-        });
+      .then(userData => {
+        if (userData) {
+          setCurrentUser(prevState => ({
+            ...prevState,
+            data: userData,
+          }));
+          setLoginStatus(true);
+          history.push('/');
+        }
+      })
+      .catch(err => {
+        setLoginStatus(false);
+        history.push('/sign-in');
+        console.log('Необходима авторизация');
+      });
   }
 
   useEffect(() => {
     const jwt = localStorage.getItem('token');
 
-    if(jwt) {
-      checkToken();
+    if (jwt) {
+      checkToken(jwt);
+      setToken(jwt);
     }
   }, []);
 
-  function signOut(){
-    
+  function signOut() {
+    setToken('');
+    setCurrentUser({ data: {} });
+    setCardsData([]);
+
+    localStorage.clear();
+
+    history.push('/sign-in');
   }
 
   function handleRegister(password, email) {
@@ -224,21 +229,21 @@ function App() {
         <CurrentUserContext.Provider value={currentUser} >
           <Header signOut={signOut} />
           <Switch>
-            <ProtectedRoute 
+            <ProtectedRoute
               path="/"
               component={Main}
-              onEditProfile={onEditProfile} 
-              onAddPlace={onAddPlace} 
-              onEditAvatar={onEditAvatar} 
-              onCardClick={handleCardClick} 
-              cardsData={cardsData} 
-              onCardLike={handleCardLike} 
-              onCardDelete={handleDeleteClick} 
+              onEditProfile={onEditProfile}
+              onAddPlace={onAddPlace}
+              onEditAvatar={onEditAvatar}
+              onCardClick={handleCardClick}
+              cardsData={cardsData}
+              onCardLike={handleCardLike}
+              onCardDelete={handleDeleteClick}
               exact
             />
             <Route path='/sign-in'>
-              <Login 
-                handleLogin={handleLogin} 
+              <Login
+                handleLogin={handleLogin}
               />
             </Route>
             <Route path='/sign-up'>
@@ -246,38 +251,38 @@ function App() {
             </Route>
           </Switch>
           <LoadingContext.Provider value={isLoading} >
-            <EditProfilePopup 
-              isOpen={isEditProfilePopupOpen} 
-              onClose={closeAllPopups} 
-              onUpdateUser={handleUpdateUser} 
+            <EditProfilePopup
+              isOpen={isEditProfilePopupOpen}
+              onClose={closeAllPopups}
+              onUpdateUser={handleUpdateUser}
             />
-            <AddPlacePopup 
-              isOpen={isAddPlacePopupOpen} 
-              onClose={closeAllPopups} 
-              onAddPlace={handleAddPlaceSubmit} 
+            <AddPlacePopup
+              isOpen={isAddPlacePopupOpen}
+              onClose={closeAllPopups}
+              onAddPlace={handleAddPlaceSubmit}
             />
-            <EditAvatarPopup 
-              isOpen={isEditAvatarPopupOpen} 
-              onClose={closeAllPopups} 
-              onUpdateAvatar={handleUpdateAvatar} 
+            <EditAvatarPopup
+              isOpen={isEditAvatarPopupOpen}
+              onClose={closeAllPopups}
+              onUpdateAvatar={handleUpdateAvatar}
             />
-            <DeleteCardPopup 
-              isOpen={deletedCard.isOpen} 
-              onClose={closeAllPopups} 
-              card={deletedCard.data} 
-              onDeleteCard={handleCardDelete} 
+            <DeleteCardPopup
+              isOpen={deletedCard.isOpen}
+              onClose={closeAllPopups}
+              card={deletedCard.data}
+              onDeleteCard={handleCardDelete}
             />
           </LoadingContext.Provider>
-          <ImagePopup 
-            isOpen={selectedCard.isOpen} 
-            onClose={closeAllPopups} 
-            card={selectedCard.data} 
-            isLoading={isLoading} 
+          <ImagePopup
+            isOpen={selectedCard.isOpen}
+            onClose={closeAllPopups}
+            card={selectedCard.data}
+            isLoading={isLoading}
           />
-          <InfoTooltip 
-            isOpen={registerStatus.isOpen} 
-            isSuccess={registerStatus.status} 
-            onClose={closeAllPopups} 
+          <InfoTooltip
+            isOpen={registerStatus.isOpen}
+            isSuccess={registerStatus.status}
+            onClose={closeAllPopups}
           />
         </CurrentUserContext.Provider>
       </LoginContext.Provider>

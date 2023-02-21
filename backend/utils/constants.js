@@ -32,7 +32,7 @@ const DEFAULT_USER_ABOUT = 'Исследователь';
 
 const DEFAULT_AVATAR_LINK = 'https://pictures.s3.yandex.net/resources/jacques-cousteau_1604399756.png';
 
-const LINK_REG_EXP = /^https?:\/\/(www\.)?[\w\d@:%~#=.+-/]+$/;
+const LINK_REG_EXP = /[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/;
 
 const ORIGINS = [
   'http://localhost:3001',
