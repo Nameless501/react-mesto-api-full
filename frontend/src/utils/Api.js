@@ -9,27 +9,30 @@ class Api {
         return res.ok ? res.json() : Promise.reject(res.status);
     }
 
-    getCardsData = () => {
+    getCardsData = (token) => {
         return fetch(`${this._baseUrl}/cards`, {
             headers: {
+                "Authorization": `Bearer ${token}`
             },
         })
             .then(res => this._checkResponse(res));
     }
 
-    getUserData = () => {
+    getUserData = (token) => {
         return fetch(`${this._baseUrl}/users/me`, {
             headers: {
+                "Authorization": `Bearer ${token}`
             },
         })
             .then(res => this._checkResponse(res));
     }
 
-    setUserData = (data) => {
+    setUserData = (data, token) => {
         return fetch(`${this._baseUrl}/users/me`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
+                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify({
                 name: data.name,
@@ -39,11 +42,12 @@ class Api {
             .then(res => this._checkResponse(res));
     }
 
-    setAvatar = (data) => {
+    setAvatar = (data, token) => {
         return fetch(`${this._baseUrl}/users/me/avatar`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
+                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify({
                 avatar: data.avatar,
@@ -52,11 +56,12 @@ class Api {
             .then(res => this._checkResponse(res));
     }
 
-    postCard = (data) => {
+    postCard = (data, token) => {
         return fetch(`${this._baseUrl}/cards`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify({
                 name: data.name,
@@ -66,19 +71,21 @@ class Api {
             .then(res => this._checkResponse(res));
     }
 
-    deleteCard = (cardId) => {
+    deleteCard = (cardId, token) => {
         return fetch(`${this._baseUrl}/cards/${cardId}`, {
             method: 'DELETE',
             headers: {
+                "Authorization": `Bearer ${token}`
             },
         })
             .then(res => this._checkResponse(res));
     }
 
-    handleLike = (cardId, isLiked) => {
+    handleLike = (cardId, isLiked, token) => {
         return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
             method: isLiked ? 'DELETE' : 'PUT',
             headers: {
+                "Authorization": `Bearer ${token}`
             },
         })
             .then(res => this._checkResponse(res));

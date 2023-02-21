@@ -7,7 +7,6 @@ const cookieParser = require('cookie-parser');
 const {
   DEFAULT_ERROR_CODE,
   DEFAULT_ERROR_MESSAGE,
-  CORS_CONFIG,
 } = require('./utils/constants');
 const { errorLogger } = require('./middlewares/logger');
 

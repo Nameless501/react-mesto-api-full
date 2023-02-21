@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const NotFoundError = require('../errors/NotFoundError');
-const { CREATED_CODE, LOGOUT_MESSAGE } = require('../utils/constants');
+const { CREATED_CODE } = require('../utils/constants');
 const { handleError } = require('../utils/utils');
 
 const { JWT_KEY = 'some-secret-key' } = process.env;
@@ -24,10 +24,6 @@ const login = (req, res, next) => {
       });
     })
     .catch((err) => handleError(err, next));
-};
-
-const logout = (req, res, next) => {
-  res.clearCookie('jwt').send({ message: LOGOUT_MESSAGE });
 };
 
 const getUsers = (req, res, next) => {
@@ -101,7 +97,6 @@ const updateAvatar = (req, res, next) => {
 
 module.exports = {
   login,
-  logout,
   getUsers,
   findUser,
   createUser,

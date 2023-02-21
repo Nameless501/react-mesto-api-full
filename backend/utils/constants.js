@@ -26,8 +26,6 @@ const FORBIDDEN_MESSAGE = 'Ошибка доступа';
 
 const DEFAULT_ERROR_MESSAGE = 'Произошла ошибка';
 
-const LOGOUT_MESSAGE = 'Выход из аккаунта успешно выполнен';
-
 const DEFAULT_USER_NAME = 'Жак-Ив Кусто';
 
 const DEFAULT_USER_ABOUT = 'Исследователь';
@@ -67,7 +65,6 @@ module.exports = {
   EMAIL_CONFLICT_MESSAGE,
   FORBIDDEN_MESSAGE,
   DEFAULT_ERROR_MESSAGE,
-  LOGOUT_MESSAGE,
   DEFAULT_USER_NAME,
   DEFAULT_USER_ABOUT,
   DEFAULT_AVATAR_LINK,

@@ -26,6 +26,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({data: '', isOpen: false});
   const [deletedCard, setDeletedCard] = useState({data: '', isOpen: false});
   const [isLoading, setIsLoading] = useState(false);
+  const [token, setToken] = useState('');
   const [registerStatus, setRegisterStatus] = useState({isOpen: false, status: false});
   
   // cards and user data state
@@ -44,12 +45,12 @@ function App() {
   // Получение данных карточек и пользователя при открытии страницы
 
   useEffect(() => {
-    if (isLoggedIn) {
-      api.getCardsData()
+    if (isLoggedIn && token) {
+      api.getCardsData(token)
         .then(cardsData => setCardsData(cardsData.reverse()))
         .catch(err => console.log(`Не удалость загрузить данные. Ошибка: ${err}`));
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, token]);
 
   // Изменения состояния попапов
 
@@ -85,7 +86,7 @@ function App() {
   // Обработчики сабмитов, лайков, удаления карточки
 
   function handleCardLike(card, isLiked) {
-    api.handleLike(card._id, isLiked)
+    api.handleLike(card._id, isLiked, token)
       .then((newCard) => {
         setCardsData((cardsData) => cardsData.map((item) => item._id === card._id ? newCard : item));
       })
@@ -95,7 +96,7 @@ function App() {
   function handleCardDelete(card) { 
     setIsLoading(true);
     
-    api.deleteCard(card._id)
+    api.deleteCard(card._id, token)
       .then(() => {
         setCardsData(cardsData => cardsData.filter((item) => item._id !== card._id));
       })
@@ -107,7 +108,7 @@ function App() {
   function handleUpdateUser(data) {
     setIsLoading(true);
 
-    api.setUserData(data)
+    api.setUserData(data, token)
       .then(newUserData => setCurrentUser(prevState => ({
         ...prevState,
         data: newUserData,
@@ -120,7 +121,7 @@ function App() {
   function handleUpdateAvatar(data) {
     setIsLoading(true);
 
-    api.setAvatar(data)
+    api.setAvatar(data, token)
       .then(newUserData => setCurrentUser(prevState => ({
         ...prevState,
         data: newUserData,
@@ -133,7 +134,7 @@ function App() {
   function handleAddPlaceSubmit(data) {
     setIsLoading(true);
 
-    api.postCard(data)
+    api.postCard(data, token)
       .then(newCard => setCardsData([newCard, ...cardsData]))
       .then(() => closeAllPopups())
       .catch(err => console.log(`Не удалость отправить карточку. Ошибка: ${err}`))
@@ -156,8 +157,8 @@ function App() {
 
   // регистрация, вход в аккаунт, проверка токена при входе, выход из аккаунта
 
-  function checkToken() {
-    auth.checkToken()
+  function checkToken(token) {
+    auth.checkToken(token)
         .then(userData => {
           if(userData) {
             setCurrentUser(prevState => ({
@@ -165,6 +166,7 @@ function App() {
               data: userData,
             }));
             setLoginStatus(true);
+            setToken(userData.token);
             history.push('/');
           }
         })
@@ -177,16 +179,15 @@ function App() {
   }
 
   useEffect(() => {
-    checkToken();
+    const jwt = localStorage.getItem('token');
+
+    if(jwt) {
+      checkToken();
+    }
   }, []);
 
   function signOut(){
-    auth.logout()
-      .then((res) => {
-        setLoginStatus(false);
-        history.push('/sign-in');
-      })
-      .catch(err => console.log(`Не удалось выйти из аккаунта. ${err}`));
+    
   }
 
   function handleRegister(password, email) {

@@ -7,13 +7,15 @@ const { handleError } = require('../utils/utils');
 const { JWT_KEY = 'some-secret-key' } = process.env;
 
 module.exports = (req, res, next) => {
-  const token = req.body.jwt;
+  const { authorization } = req.headers;
   let payload;
 
-  if (!token) {
+  if (!authorization || !authorization.startsWith('Bearer ')) {
     handleError(new DataAccessError(NEED_AUTH_MESSAGE), next);
     return;
   }
+
+  const token = authorization.replace('Bearer ', '');
 
   try {
     payload = jwt.verify(token, JWT_KEY);

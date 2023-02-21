@@ -8,7 +8,7 @@ export const register = (password, email) => {
     return fetch(`${BASE_URL}/signup`, {
         method: 'POST',
         headers: {
-            "Content-Type": "application/json" 
+            "Content-Type": "application/json"
         },
         body: JSON.stringify({
             password,
@@ -29,23 +29,25 @@ export const login = (password, email) => {
             email
         })
     })
-        .then(res => checkResponse(res));
+        .then(res => checkResponse(res))
+        .then(data => {
+            if (data.token) {
+                localStorage.setItem('token', data.token);
+                return data;
+            } else {
+                return;
+            }
+        });
 }
 
-export const logout = () => {
-    return fetch(`${BASE_URL}/signout`, {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json",
-        },
-    })
-        .then(res => checkResponse(res));
-}
-
-export const checkToken = () => {
+export const checkToken = (token) => {
     return fetch(`${BASE_URL}/users/me`, {
         method: 'GET',
-        headers: {},
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
     })
-        .then(res => checkResponse(res))
+        .then(response => checkResponse(response))
+        .then(res => res.data)
 }
