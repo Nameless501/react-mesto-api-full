@@ -11,7 +11,6 @@ class Api {
 
     getCardsData = () => {
         return fetch(`${this._baseUrl}/cards`, {
-            credentials: 'include',
             headers: {
             },
         })
@@ -20,7 +19,6 @@ class Api {
 
     getUserData = () => {
         return fetch(`${this._baseUrl}/users/me`, {
-            credentials: 'include',
             headers: {
             },
         })
@@ -30,7 +28,6 @@ class Api {
     setUserData = (data) => {
         return fetch(`${this._baseUrl}/users/me`, {
             method: 'PATCH',
-            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -45,7 +42,6 @@ class Api {
     setAvatar = (data) => {
         return fetch(`${this._baseUrl}/users/me/avatar`, {
             method: 'PATCH',
-            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -59,7 +55,6 @@ class Api {
     postCard = (data) => {
         return fetch(`${this._baseUrl}/cards`, {
             method: 'POST',
-            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -74,7 +69,6 @@ class Api {
     deleteCard = (cardId) => {
         return fetch(`${this._baseUrl}/cards/${cardId}`, {
             method: 'DELETE',
-            credentials: 'include',
             headers: {
             },
         })
@@ -84,7 +78,6 @@ class Api {
     handleLike = (cardId, isLiked) => {
         return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
             method: isLiked ? 'DELETE' : 'PUT',
-            credentials: 'include',
             headers: {
             },
         })

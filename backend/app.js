@@ -15,7 +15,7 @@ const { PORT = 3000, MONGO_URL = 'mongodb://localhost:27017/mestodb' } = process
 
 const app = express();
 
-app.use('*', cors(CORS_CONFIG));
+app.use('*', cors());
 
 app.use(cookieParser());
 

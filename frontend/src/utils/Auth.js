@@ -21,7 +21,6 @@ export const register = (password, email) => {
 export const login = (password, email) => {
     return fetch(`${BASE_URL}/signin`, {
         method: 'POST',
-        credentials: 'include',
         headers: {
             "Content-Type": "application/json",
         },
@@ -36,7 +35,6 @@ export const login = (password, email) => {
 export const logout = () => {
     return fetch(`${BASE_URL}/signout`, {
         method: 'POST',
-        credentials: 'include',
         headers: {
             "Content-Type": "application/json",
         },
@@ -47,7 +45,6 @@ export const logout = () => {
 export const checkToken = () => {
     return fetch(`${BASE_URL}/users/me`, {
         method: 'GET',
-        credentials: 'include',
         headers: {},
     })
         .then(res => checkResponse(res))
