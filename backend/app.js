@@ -11,7 +11,7 @@ const {
 } = require('./utils/constants');
 const { errorLogger } = require('./middlewares/logger');
 
-const { PORT = 3000, DB_URL = 'mongodb://localhost:27017/mestodb' } = process.env;
+const { PORT = 3000, MONGO_URL = 'mongodb://localhost:27017/mestodb' } = process.env;
 
 const app = express();
 
@@ -22,7 +22,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-mongoose.connect(DB_URL);
+mongoose.connect(MONGO_URL);
 
 app.use('/', require('./routers/index'));
 
