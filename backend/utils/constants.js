@@ -50,7 +50,6 @@ const CORS_CONFIG = {
   preflightContinue: false,
   optionsSuccessStatus: 204,
   allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
-  credentials: true,
 };
 
 module.exports = {

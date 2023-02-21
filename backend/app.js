@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const {
   DEFAULT_ERROR_CODE,
   DEFAULT_ERROR_MESSAGE,
+  CORS_CONFIG,
 } = require('./utils/constants');
 const { errorLogger } = require('./middlewares/logger');
 
@@ -14,7 +15,7 @@ const { PORT = 3000, MONGO_URL = 'mongodb://localhost:27017/mestodb' } = process
 
 const app = express();
 
-app.use('*', cors());
+app.use('*', cors(CORS_CONFIG));
 
 app.use(cookieParser());
 

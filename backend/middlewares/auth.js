@@ -7,7 +7,7 @@ const { handleError } = require('../utils/utils');
 const { JWT_KEY = 'some-secret-key' } = process.env;
 
 module.exports = (req, res, next) => {
-  const token = req.cookies.jwt;
+  const token = req.body.jwt;
   let payload;
 
   if (!token) {
