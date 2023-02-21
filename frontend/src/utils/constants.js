@@ -1,1 +1,1 @@
-export const BASE_URL = 'https://api.nameless.nomoredomains.club';
+export const BASE_URL = 'http://react-mesto-api-full-production.up.railway.app';

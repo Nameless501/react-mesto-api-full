@@ -41,6 +41,7 @@ const ORIGINS = [
   'http://localhost:3000',
   'http://nameless.nomoredomains.club',
   'https://nameless.nomoredomains.club',
+  'https://nameless501.github.io/react-mesto-api-full/',
 ];
 
 const CORS_CONFIG = {
