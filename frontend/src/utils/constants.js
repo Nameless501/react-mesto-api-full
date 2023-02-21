@@ -1,1 +1,1 @@
-export const BASE_URL = 'http://react-mesto-api-full-production.up.railway.app';
+export const BASE_URL = 'https://react-mesto-api-full-production.up.railway.app';
